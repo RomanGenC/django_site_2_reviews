@@ -1,0 +1,59 @@
+{% load static %}
+<head>
+    <link href="{% static 'css/recipient.css' %}" rel="stylesheet">
+</head>
+
+<style>
+    .photo {
+        float: right; /* Фото выравнивается справа */
+        margin-right: 20px; /* Расстояние между текстом и фото */
+        margin-bottom: 20px;
+    }
+    .photo img {
+        max-width: 400px;
+        max-height: 400px;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <div class="left_content">
+            <div id="content">
+                <div class="recipient-info">
+                    <div class="photo">
+                        <img src="{{ recipient.photo.url }}" alt="Фото обозреваемого">
+                    </div>
+                    <div class="details">
+                        <h1>{{ recipient }}</h1>
+                        <a>Специальности обозреваемого: {{ recipient.specialities.all|join:', ' }}</a>
+                        <p>Стаж работы: {{ recipient.experience }} год</p>
+                        <p>Визитка: {{ recipient.description }}</p>
+                        <a><button onclick="window.location.href='{% url 'add_review' recipient.id %}'">Оставить честный отзыв</button></a>
+                    </div>
+                </div>
+                <h2>Отзывы об обозреваемом</h2>
+                {% if recipient.reviews.all %}
+                    {% for review in recipient.reviews.all %}
+                        {% if review.is_published %}
+                            <fieldset>
+                                <p><<{{ review }}>></p>
+                                {% if review.is_anonymous %}
+                                    <p>Отзыв оставил аноним и оценил на {{ review.rate }} звезд</p>
+                                {% else %}
+                                    <p>Отзыв оставил {{ review.user }} и оценил на {{ review.rate }} звезд</p>
+                                {% endif %}
+                            </fieldset>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>На данный момент отзывов об обозреваемом нет</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="side_wrapper">
+            <div class="sidebar">
+                <h1><a href="{% url 'base_page' %}">Основная страница</a></h1>
+            </div>
+        </div>
+    </div>
+</body>

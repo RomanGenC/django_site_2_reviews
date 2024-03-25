@@ -1,0 +1,29 @@
+{% load static %}
+<head>
+    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        background-color: #1f2029;
+    }
+</style>
+
+<body>
+    <div class="center">
+        <div class="login-form">
+            <form action="{% url 'login' %}" method="post">
+                <fieldset>
+                    <h1>Авторизация</h1>
+                    <input type="text" name="username" placeholder="Имя пользователя" class="username-input">
+                    <input type="password" name="password" placeholder="Пароль" class="password-input">
+                    {% csrf_token %}
+                    <input type="submit" value="Войти" class="btn">
+                </fieldset>
+            </form>
+            {% if form.errors %}
+                <p>Ваше имя или пароль введены некорректно. Попробуйте снова.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>

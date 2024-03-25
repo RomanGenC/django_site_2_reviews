@@ -1,0 +1,27 @@
+{% load static %}
+<head>
+    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        background-color: #1f2029;
+    }
+</style>
+
+<body>
+    <div class="center">
+        <fieldset>
+            <form method="post">
+                <h1>Создание аккаунта</h1>
+                <h2>Заполните поля формы</h2>
+                <input type="text" name="username" placeholder="Имя пользователя" class="username-input">
+                <input type="text" name="first name" placeholder="Имя" class="username-input">
+                <input type="password" name="password" placeholder="Пароль" class="password-input">
+                <input type="password" name="password2" placeholder="Пароль" class="password-input">
+                {% csrf_token %}
+                <p><input type="submit" value="Создать аккаунт" class="btn"></p>
+            </form>
+        </fieldset>
+    </div>
+</body>

@@ -1,0 +1,108 @@
+{% load static %}
+<head>
+    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
+</head>
+
+<style>
+    .photo {
+        float: right; /* Фото выравнивается справа */
+        margin-right: 20px; /* Расстояние между текстом и фото */
+        margin-bottom: 20px;
+    }
+    .photo img {
+        max-width: 200px;
+        max-height: 200px;
+    }
+</style>
+
+
+<body>
+    <div class="tabs">
+        <div class="tab">
+            <button onclick="location.href='{% url 'self_cabinet' %}'">Личный кабинет</button>
+        </div>
+        <div class="tab">
+            <button onclick="location.href='{% url 'all_recipients' %}'">Все обозреваемые</button>
+        </div>
+        <div class="tab">
+            <button onclick="location.href='{% url 'recipient_search' %}'">Поиск</button>
+        </div>
+        <div class="tab">
+            <button onclick="location.href='{% url 'register' %}'">Зарегистрироваться</button>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="left_content">
+            <div id="content">
+                <h1>Здравствуй, Рецензент</h1>
+                <h2>Добро пожаловать на нашу страницу отзывов о врачах! Мы стремимся предоставить вам полезную информацию и поделиться опытом наших пациентов о врачебном обслуживании.</h2>
+                <p>Наши отзывы - это истории о заботе, профессионализме и добросовестной работе врачей. Мы верим, что каждый человек имеет право на качественное медицинское обслуживание, и наши врачи делают все возможное, чтобы обеспечить это.</p>
+                <p>Здесь вы найдете отзывы о различных специалистах: от врачей общей практики до специализированных хирургов и специалистов узкого профиля. Наша цель - помочь вам сделать информированный выбор при выборе врача и обратить внимание на качество медицинского обслуживания.</p>
+                <p>Мы приглашаем вас делиться вашими собственными отзывами о врачах, чтобы помочь другим людям принять решение. Вместе мы можем сделать наш медицинский опыт еще лучше.</p>
+                <h2>Спасибо, что выбрали нас для поиска информации о врачах. Надеемся, что наша страница будет полезной для вас!</h2>
+            </div>
+            <div id="content">
+                <h1>Лучшие рецензенты</h1>
+                {% if recipients %}
+                    {% for recipient in recipients %}
+                        <div class="content">
+                            <div class="recipient-info">
+                                <div class="photo">
+                                    <img src="{{ recipient.photo.url }}" alt="Фото обозреваемого">
+                                </div>
+                                <div class="details">
+                                    <h1><a href="{% url 'recipient_info' recipient.id %}">{{ recipient }}</a></h1>
+                                    <a>Специальности обозреваемого: {{ recipient.specialities.all|join:', ' }}</a>
+                                    {% if recipient.avg_rating %}
+                                        <p>Средний рейтинг: {{ recipient.avg_rating }}</p>
+                                    {% else %}
+                                        <p>На данный момент отзывов на этого рецензента нет</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h1>В данный момент обозреваемых нет</h1>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="side_wrapper">
+            <div class="sidebar">
+                <h1>Функционал</h1>
+                Привет, {{ request.user.first_какname|default:request.user.username }}
+            </div>
+            <div class="sidebar">
+                <table>
+                    <tr>
+                        <th colspan="2">Автор</th>
+                        <th>Отзывы</th>
+                        <th>Рейтинг</th>
+                    </tr>
+                </table>
+
+                <h1>ТОП авторов</h1>
+                <p>Автор отзывы</p>
+                {% for user in users %}
+                    <p>{{ forloop.counter }}. <a href="{% url 'user_info' user.id %}">{{ user }}</a>, отзывов: {{ user.reviews.count }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="column">
+            <h3>О нашей компании</h3>
+            <p>Наша компания заботится о честности отзывов. Мы стремимся предоставить только честные отзывы и делаем все возможное, чтобы вы получили лучшее обслуживание.</p>
+            <p>Благодарим вас за доверие и выбор нашей компании!</p>
+        </div>
+        <div class="column">
+            <p><a href="{% url 'polzovatelskoe_soglashenie' %}">Пользовательское соглашение</a></p>
+            <p><a href="{% url 'politika_konfidencialnosti' %}">Политика конфиденциальности</a></p>
+            <p><a href="{% url 'o_kompanii' %}">О компании</a></p>
+            <button class="button-85" role="button" onclick="window.location.href='https://web.telegram.org/k/#@MarkSergeevichBot'">Телеграм</button>
+        </div>
+    </footer>
+<body>
