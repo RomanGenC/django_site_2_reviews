@@ -49,7 +49,6 @@ h2 {
 }
 .left_content
 {
-    /*float:left;*/ /* Выравнивание контента по левому краю */
     margin: 0 1.5% 0 0;
 }
 .side_wrapper {

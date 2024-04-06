@@ -4,6 +4,15 @@ from .models import Recipient, Review
 from django.contrib.auth.models import User
 
 
+class ReviewEditForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['modified_review', 'is_published']
+        widgets = {
+            'modified_review': forms.Textarea(),
+        }
+
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -32,7 +41,7 @@ class AddReview(forms.ModelForm):
         fields = ['original_review', 'rate']
 
         widgets = {
-            'original_review': forms.Textarea(attrs={'cols': 50, 'rows': 5,
+            'original_review': forms.Textarea(attrs={'cols': 200, 'rows': 30,
                                                      'placeholder': 'Напишите ваш отзыв здесь...'}),
             'rate': forms.Select(choices=[(i, str(i)) for i in range(1, 6)]),
         }

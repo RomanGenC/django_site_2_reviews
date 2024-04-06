@@ -1,4 +1,5 @@
 {% load static %}
+{% load cache %}
 <head>
     <link href="{% static "css/recipient.css" %}" rel="stylesheet">
 </head>
@@ -63,7 +64,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <h1>В данный момент обозреваемых нет</h1>
+                    <h1>В данный момент обозреваемых с отзывами нет</h1>
                 {% endif %}
             </div>
         </div>
@@ -105,4 +106,4 @@
             <button class="button-85" role="button" onclick="window.location.href='https://web.telegram.org/k/#@MarkSergeevichBot'">Телеграм</button>
         </div>
     </footer>
-<body>
+</body>

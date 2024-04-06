@@ -3,6 +3,15 @@
     <link href="{% static "css/recipient.css" %}" rel="stylesheet">
 </head>
 
+<style>
+    .wrapper {
+        display: flex;
+    }
+    .left_content {
+        flex: 1;
+    }
+</style>
+
 <body>
     <div class="wrapper">
         <div class="left_content">
@@ -35,7 +44,8 @@
         <div class="side_wrapper">
             <div class="sidebar">
                 <h1><a href="{% url 'base_page' %}">Основная страница</a></h1>
-                <a href="{% url "logout" %}">Выйти</a>
+                <a href="{% url 'not_published_reviews' %}">Отзывы для модерации</a>
+                <p><a href="{% url "logout" %}">Выйти</a></p>
             </div>
         </div>
     </div>

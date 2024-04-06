@@ -7,6 +7,15 @@
     #content {
         width: 65vw;
     }
+    .photo {
+        float: right; /* Фото выравнивается справа */
+        margin-right: 20px; /* Расстояние между текстом и фото */
+        margin-bottom: 20px;
+    }
+    .photo img {
+        max-width: 400px;
+        max-height: 400px;
+    }
 </style>
 
 <body>
@@ -16,10 +25,17 @@
                 {% if query %}
                     <h1>Подходящие рецензенты "{{ query }}"</h1>
                     {% for recipient in results %}
-                        <h1><a href="{% url 'recipient_info' recipient.id %}">{{ recipient }}</a></h1>
-                        <a>Специальности обозреваемого: {{ recipient.specialities.all|join:', ' }}</a>
-                        <p>Стаж работы: {{ recipient.experience }} год</p>
-                        <p>Визитка: {{ recipient.description }}</p>
+                        <div class="recipient-info">
+                            <div class="photo">
+                                <img src="{{ recipient.photo.url }}" alt="Фото обозреваемого">
+                            </div>
+                                <div class="details">
+                                <h1><a href="{% url 'recipient_info' recipient.id %}">{{ recipient }}</a></h1>
+                                <a>Специальности обозреваемого: {{ recipient.specialities.all|join:', ' }}</a>
+                                <p>Стаж работы: {{ recipient.experience }} год</p>
+                                <p>Визитка: {{ recipient.description }}</p>
+                            </div>
+                        </div>
                     {% endfor %}
                 {% else %}
                     <h1>Нет подходящих рецензентов</h1>

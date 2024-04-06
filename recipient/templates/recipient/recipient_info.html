@@ -36,7 +36,7 @@
                     {% for review in recipient.reviews.all %}
                         {% if review.is_published %}
                             <fieldset>
-                                <p><<{{ review }}>></p>
+                                <p><<{{ review.modified_review }}>></p>
                                 {% if review.is_anonymous %}
                                     <p>Отзыв оставил аноним и оценил на {{ review.rate }} звезд</p>
                                 {% else %}
