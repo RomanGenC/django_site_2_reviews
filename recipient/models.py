@@ -74,6 +74,7 @@ class Review(models.Model):
     def __str__(self):
         return self.modified_review
 
-    def save(self, *args, **kwargs):
-        self.modified_review = str(self.original_review)
-        super().save(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        self.original_review = kwargs.pop('original_review', None)
+        self.modified_review = self.original_review
+        super().__init__(*args, **kwargs)

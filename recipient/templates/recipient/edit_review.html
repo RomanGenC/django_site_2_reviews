@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Tab Button</title>
+    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .wrapper {
+            display: flex;
+        }
+        .left_content {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="left_content">
+            <div id="content">
+                <form action="{% url 'edit_review' review.pk %}" method="post">
+                    <button type="button" id="insertTabButton">
+                        <img src="/media/button_for_edit/marked_dot.png" alt="Вставить табуляцию" width="50" height="50">
+                    </button>
+                    <button type="button" id="insertNumberedListButton">
+                        <img src="/media/button_for_edit/numeric_list.png" alt="Вставить нумерованный список" width="50" height="50">
+                    </button>
+                    <label>
+                        <input type="checkbox" id="boldCheckbox"> Жирный
+                    </label>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Сохранить отзыв" class="btn">
+                </form>
+                {% if form.errors %}
+                    mem
+                {% endif %}
+            </div>
+        </div>
+        <div class="side_wrapper">
+            <div class="sidebar">
+                <h1><a href="{% url 'base_page' %}">Основная страница</a></h1>
+            </div>
+        </div>
+    </div>
+    <script>
+            // JavaScript для динамического изменения размеров текстового поля
+        document.addEventListener('DOMContentLoaded', function() {
+            var textareas = document.querySelectorAll('textarea');
+
+            textareas.forEach(function(textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+                textarea.style.overflow = 'hidden';
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+            });
+        });
+        $(document).ready(function() {
+            $("#boldCheckbox").on("change", function() {
+                var textarea = $("#id_modified_review")[0];
+                var isChecked = $(this).is(":checked");
+                var selectionStart = textarea.selectionStart;
+                var selectionEnd = textarea.selectionEnd;
+                var text = textarea.value.substring(selectionStart, selectionEnd);
+
+                if (isChecked) {
+                    var boldText = "<strong>" + text + "</strong>";
+                    var newText = textarea.value.substring(0, selectionStart) + boldText + textarea.value.substring(selectionEnd);
+                    textarea.value = newText;
+                } else {
+                    // Remove bold tags
+                    var newText = textarea.value.replace(/<strong>|<\/strong>/g, "");
+                    textarea.value = newText;
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#insertTabButton").on("click", function () {
+                var textarea = $("#id_modified_review")[0];
+                var cursorPosition = textarea.selectionStart;
+                var textBeforeCursor = textarea.value.substring(0, cursorPosition);
+                var textAfterCursor = textarea.value.substring(cursorPosition);
+                var newText;
+                if (textBeforeCursor.includes("• ")) {
+                    var dotPosition = textBeforeCursor.lastIndexOf("• ");
+                    var textBeforeDot = textBeforeCursor.substring(0, dotPosition);
+                    var subPoint = textBeforeCursor.substring(dotPosition + 2);
+                    newText = textBeforeDot + "\t• " + subPoint + textAfterCursor;
+                } else {
+                    newText = textBeforeCursor + "\t• " + textAfterCursor;
+                }
+
+                textarea.value = newText;
+                var newCursorPosition = cursorPosition + 2;
+                textarea.selectionStart = textarea.selectionEnd = newCursorPosition;
+            });
+        });
+         $(document).ready(function () {
+            $("#insertNumberedListButton").on("click", function () {
+                var textarea = $("#id_modified_review")[0];
+                var cursorPosition = textarea.selectionStart;
+                var textBeforeCursor = textarea.value.substring(0, cursorPosition);
+                var textAfterCursor = textarea.value.substring(cursorPosition);
+                var lineNumber = textBeforeCursor.split("\n").length;
+                var numberedLine = lineNumber + ". ";
+                textarea.value = textBeforeCursor + numberedLine + textAfterCursor;
+                textarea.focus();
+                var newPosition = cursorPosition + numberedLine.length;
+                textarea.selectionStart = textarea.selectionEnd = newPosition;
+            });
+        });
+
+    </script>
+</body>
+</html>

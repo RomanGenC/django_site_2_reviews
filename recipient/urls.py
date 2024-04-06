@@ -1,6 +1,7 @@
 from django.urls import path
 from recipient import views
 from django.contrib.auth import views as auth_views
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     path('base/', views.base_page, name='base_page'),
@@ -11,6 +12,8 @@ urlpatterns = [
     path('add-review/<int:recipient_id>/', views.add_review, name='add_review'),
     path('success-review/', views.success_review, name='success_review'),
     path('search/', views.recipient_search, name='recipient_search'),
+    path('edit_review/<int:pk>/', views.edit_review, name='edit_review'),
+    path('not_published_reviews/', views.not_published_reviews, name='not_published_reviews'),
 
     path('politika-konfidencialnosti/', views.politika_konfidencialnosti, name='politika_konfidencialnosti'),
     path('polzovatelskoe-soglashenie/', views.polzovatelskoe_soglashenie, name='polzovatelskoe_soglashenie'),

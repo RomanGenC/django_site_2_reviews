@@ -9,8 +9,10 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.db.models import Avg, Count
 from django.views.decorators.cache import cache_page
+from django.views.decorators.http import require_GET
+from django.views.decorators.vary import vary_on_headers
 
-from recipient.forms import LoginForm, UserRegistrationForm, AddReview, SearchForm
+from recipient.forms import LoginForm, UserRegistrationForm, AddReview, SearchForm, ReviewEditForm
 from recipient.models import Review, Recipient
 
 
@@ -28,7 +30,12 @@ def o_kompanii(request):
 
 
 def base_page(request):
-    recipients = Recipient.objects.annotate(avg_rating=Avg('reviews__rate')).prefetch_related('specialities').order_by('-avg_rating')
+    recipients = (
+        Recipient.objects.filter(reviews__is_published=True)
+        .annotate(avg_rating=Avg('reviews__rate'))
+        .prefetch_related('specialities')
+        .order_by('-avg_rating')
+    )
     users = User.objects.annotate(num_reviews=Count('reviews')).order_by('-num_reviews')
 
     return render(request,
@@ -57,6 +64,7 @@ def login_user(request):
     return render(request, 'registration/login.html', {'form': form})
 
 
+@require_GET
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -143,6 +151,34 @@ def add_review(request, recipient_id):
 def success_review(request):
     return render(request, 'recipient/success_review.html', )
 
+
+def edit_review(request, pk):
+    print(pk)
+    review = get_object_or_404(Review, pk=pk)
+    if request.method == 'POST':
+        form = ReviewEditForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            print(form.cleaned_data['modified_review'])
+            print('top')
+            return redirect(reverse('not_published_reviews'))
+    else:
+        form = ReviewEditForm(instance=review)
+
+    return render(request,
+                  'recipient/edit_review.html',
+                  {'review': review, 'form': form})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def not_published_reviews(request):
+    reviews = (
+        Review.objects.select_related('recipient', 'user')
+        .prefetch_related('recipient__specialities')
+        .filter(is_published=False)
+    )
+
+    return render(request, 'recipient/not_published_reviews.html', {'reviews': reviews})
 
 def recipient_search(request):
     form = SearchForm()
