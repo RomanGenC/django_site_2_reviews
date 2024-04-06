@@ -7,6 +7,15 @@
     body {
         background-color: #1f2029;
     }
+    .center {
+        height: 100%;
+        width: 50%; /* Устанавливаем ширину формы */
+        margin: 0 auto; /* Центрируем форму по горизонтали */
+        padding: 20px; /* Добавляем отступы для контента внутри формы */
+    }
+    .center form {
+        width: 80%; /* Задаем ширину формы на 100%, чтобы она занимала всю доступную ширину родительского контейнера */
+    }
 </style>
 
 <body>
@@ -14,9 +23,9 @@
         <form action="" method="post">
             {% csrf_token %}
             <h1>Оставить отзыв</h1>
-            <p>{{ recipient.fullname }}</p>
-            <p>Специальности: {{ recipient.specialities.all|join:', ' }}</p>
-            <p>Оцените рецензента: {{ form.rate }}</p>
+            <a>{{ recipient.fullname }}</a>
+            <a><p>Специальности: {{ recipient.specialities.all|join:', ' }}</p></a>
+            <a><p>Оцените рецензента: {{ form.rate }}</p></a>
             <p>{{ form.original_review }}</p>
             <p>Оставить отзыв анонимно: {{ form.is_anonymous }}</p>
             <input type="submit" value="Оставить отзыв" class="btn">
