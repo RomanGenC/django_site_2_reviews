@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "reviews"
+version = "0.1.0"
+description = "A Django site for reviews"
+authors = ["RomanGenC <1romankadykov@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.6"
+django-debug-toolbar = "^4.4.2"
+django-sslserver = "^0.22"
+django-extensions = "^3.2.3"
+psycopg2-binary = "^2.9.9"
+pillow = "^10.3.0"
+redis = "^5.0.4"
+werkzeug = "^3.0.3"
+pyopenssl = "^24.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
