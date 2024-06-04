@@ -1,21 +1,8 @@
+{% extends 'recipient/vir.html' %}
 {% load static %}
-<head>
-    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
-</head>
-
-<style>
-    .photo {
-        float: right; /* Фото выравнивается справа */
-        margin-right: 20px; /* Расстояние между текстом и фото */
-        margin-bottom: 20px;
-    }
-    .photo img {
-        max-width: 300px;
-        max-height: 300px;
-    }
-</style>
-
-<body>
+{% load cache %}
+{% block content %}
+    <link href="{% static "css/all_recipients.css" %}" rel="stylesheet">
     <div class="wrapper">
         <div class="left_content">
             <div id="content">
@@ -48,4 +35,4 @@
             </div>
         </div>
     </div>
-</body>
+{% endblock %}

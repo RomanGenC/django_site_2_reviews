@@ -1,24 +1,8 @@
+{% extends 'recipient/vir.html' %}
 {% load static %}
-<head>
-    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
-</head>
-
-<style>
-    #content {
-        width: 65vw;
-    }
-    .photo {
-        float: right; /* Фото выравнивается справа */
-        margin-right: 20px; /* Расстояние между текстом и фото */
-        margin-bottom: 20px;
-    }
-    .photo img {
-        max-width: 400px;
-        max-height: 400px;
-    }
-</style>
-
-<body>
+{% load cache %}
+{% block content %}
+    <link href="{% static "css/search.css" %}" rel="stylesheet">
     <div class="wrapper">
         <div class="left_content">
             <div id="content">
@@ -51,9 +35,9 @@
                 <form method="get">
                     <p>Введите имя рецензента</p>
                     {{ form.query }}
-                    <input type="submit" value="Search">
+                    <input type="submit" value="Поиск">
                 </form>
             </div>
         </div>
     </div>
-</body>
+{% endblock %}

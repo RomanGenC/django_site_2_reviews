@@ -1,10 +1,8 @@
+{% extends 'recipient/vir.html' %}
 {% load static %}
-<head>
-    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
-</head>
-
-<body>
-<div class="wrapper">
+{% load cache %}
+{% block content %}
+    <div class="wrapper">
         <div class="left_content">
             <div id="content">
                 {% if reviews %}
@@ -12,7 +10,7 @@
                         <h1>Отзыв на {{ review.recipient }}</h1>
                         <p>Специальности: {{ review.recipient.specialities.all|join:', ' }}</p>
                         {{ review }}
-                        <p><a><button onclick="window.location.href='{% url 'edit_review' review.id %}'">Редактировать отзыв</button></a></p>
+                        <p><a><button onclick="window.location.href='{% url 'edit_review' review.id %}'" >Редактировать отзыв</button></a></p>
                     {% endfor %}
                 {% else %}
                     <h1>В данный момент не опубликованных отзывов нет</h1>
@@ -27,4 +25,4 @@
             </div>
         </div>
     </div>
-</body>
+{% endblock %}

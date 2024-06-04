@@ -1,21 +1,9 @@
+{% extends 'recipient/vir.html' %}
 {% load static %}
-<head>
-    <link href="{% static 'css/recipient.css' %}" rel="stylesheet">
-</head>
-
-<style>
-    .photo {
-        float: right; /* Фото выравнивается справа */
-        margin-right: 20px; /* Расстояние между текстом и фото */
-        margin-bottom: 20px;
-    }
-    .photo img {
-        max-width: 400px;
-        max-height: 400px;
-    }
-</style>
-
-<body>
+{% load cache %}
+{% block content %}
+    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
+    <link href="{% static "css/card.css" %}" rel="stylesheet">
     <div class="wrapper">
         <div class="left_content">
             <div id="content">
@@ -49,6 +37,19 @@
                     <p>На данный момент отзывов об обозреваемом нет</p>
                 {% endif %}
             </div>
+<!--            <div class="product-card">-->
+<!--                <div class="product-card-inner">-->
+<!--                    <div class="product-card-front">-->
+<!--                        <img src="product-image.jpg" alt="Product Image">-->
+<!--                        <h2>Product Name</h2>-->
+<!--                        <p>$19.99</p>-->
+<!--                    </div>-->
+<!--                    <div class="product-card-back">-->
+<!--                        <h2>Product Details</h2>-->
+<!--                        <p>This is a great product that you will love!</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <div class="side_wrapper">
             <div class="sidebar">
@@ -56,4 +57,4 @@
             </div>
         </div>
     </div>
-</body>
+{% endblock %}

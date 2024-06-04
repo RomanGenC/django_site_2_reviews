@@ -1,37 +1,8 @@
+{% extends 'recipient/vir.html' %}
 {% load static %}
 {% load cache %}
-<head>
-    <link href="{% static "css/recipient.css" %}" rel="stylesheet">
-</head>
-
-<style>
-    .photo {
-        float: right; /* Фото выравнивается справа */
-        margin-right: 20px; /* Расстояние между текстом и фото */
-        margin-bottom: 20px;
-    }
-    .photo img {
-        max-width: 200px;
-        max-height: 200px;
-    }
-</style>
-
-
-<body>
-    <div class="tabs">
-        <div class="tab">
-            <button onclick="location.href='{% url 'self_cabinet' %}'">Личный кабинет</button>
-        </div>
-        <div class="tab">
-            <button onclick="location.href='{% url 'all_recipients' %}'">Все обозреваемые</button>
-        </div>
-        <div class="tab">
-            <button onclick="location.href='{% url 'recipient_search' %}'">Поиск</button>
-        </div>
-        <div class="tab">
-            <button onclick="location.href='{% url 'register' %}'">Зарегистрироваться</button>
-        </div>
-    </div>
+{% block content %}
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
     <div class="wrapper">
         <div class="left_content">
             <div id="content">
@@ -73,7 +44,7 @@
         <div class="side_wrapper">
             <div class="sidebar">
                 <h1>Функционал</h1>
-                Привет, {{ request.user.first_какname|default:request.user.username }}
+                Привет, {{ request.user.first_name|default:request.user.username }}
             </div>
             <div class="sidebar">
                 <table>
@@ -92,18 +63,4 @@
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="column">
-            <h3>О нашей компании</h3>
-            <p>Наша компания заботится о честности отзывов. Мы стремимся предоставить только честные отзывы и делаем все возможное, чтобы вы получили лучшее обслуживание.</p>
-            <p>Благодарим вас за доверие и выбор нашей компании!</p>
-        </div>
-        <div class="column">
-            <p><a href="{% url 'polzovatelskoe_soglashenie' %}">Пользовательское соглашение</a></p>
-            <p><a href="{% url 'politika_konfidencialnosti' %}">Политика конфиденциальности</a></p>
-            <p><a href="{% url 'o_kompanii' %}">О компании</a></p>
-            <button class="button-85" role="button" onclick="window.location.href='https://web.telegram.org/k/#@MarkSergeevichBot'">Телеграм</button>
-        </div>
-    </footer>
-</body>
+{% endblock %}
