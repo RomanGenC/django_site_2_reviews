@@ -24,7 +24,8 @@ def politika_konfidencialnosti(request):
     return render(request, 'about_site/politika_konfidencialnosti.html')
 
 
-@cache_page(60 * 15)
+@vary_on_headers('User-Agent')
+@cache_page(60 * 15, key_prefix='o_kompanii')
 def o_kompanii(request):
     return render(request, 'about_site/o_kompanii.html')
 
@@ -37,6 +38,9 @@ def base_page(request):
         .order_by('-avg_rating')
     )
     users = User.objects.annotate(num_reviews=Count('reviews')).order_by('-num_reviews')
+    cache_test = cache.get('test')
+    if cache_test is None:
+        cache.set('test', 1, 60)
 
     return render(request,
                   'recipient/base_page.html',

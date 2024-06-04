@@ -1,0 +1,107 @@
+{% load static %}
+{% load cache %}
+<head>
+    <link href="{% static "css/vir.css" %}" rel="stylesheet">
+    <link href="{% static "css/header.css" %}" rel="stylesheet">
+    <link href="{% static "css/footer.css" %}" rel="stylesheet">
+    <link href="{% static "widget/widget.css" %}" rel="stylesheet">
+    <link href="{% static "css/dark-mode-button.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <a href="{% url 'base_page' %}" class="logo">Logo</a>
+        <nav class="navbar">
+            <a href="{% url 'self_cabinet' %}">Личный кабинет</a>
+            <a href="{% url 'all_recipients' %}">Все обозреваемые</a>
+            <a href="{% url 'recipient_search' %}">Поиск</a>
+            <a href="{% url 'register' %}">Зарегистрироваться</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+
+            <script>
+                const checkbox = document.getElementById("checkbox");
+                checkbox.addEventListener("change", () => {
+                    document.body.classList.toggle("dark-mode");
+                });
+            </script>
+        </nav>
+    </header>
+<!--    <div class="tabs">-->
+<!--        <div class="tab">-->
+<!--            <button onclick="location.href='{% url 'self_cabinet' %}'">Личный кабинет</button>-->
+<!--        </div>-->
+<!--        <div class="tab">-->
+<!--            <button onclick="location.href='{% url 'all_recipients' %}'">Все обозреваемые</button>-->
+<!--        </div>-->
+<!--        <div class="tab">-->
+<!--            <button onclick="location.href='{% url 'recipient_search' %}'">Поиск</button>-->
+<!--        </div>-->
+<!--        <div class="tab">-->
+<!--            <button onclick="location.href='{% url 'register' %}'">Зарегистрироваться</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    {% block content %}
+    {% endblock %}
+
+<!--    <footer>-->
+<!--        <div class="column">-->
+<!--            <h3>О нашей компании</h3>-->
+<!--            <p>Наша компания заботится о честности отзывов. Мы стремимся предоставить только честные отзывы и делаем все возможное, чтобы вы получили лучшее обслуживание.</p>-->
+<!--            <p>Благодарим вас за доверие и выбор нашей компании!</p>-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            <p><a href="{% url 'polzovatelskoe_soglashenie' %}">Пользовательское соглашение</a></p>-->
+<!--            <p><a href="{% url 'politika_konfidencialnosti' %}">Политика конфиденциальности</a></p>-->
+<!--            <p><a href="{% url 'o_kompanii' %}">О компании</a></p>-->
+<!--            <button class="button-85" role="button" onclick="window.location.href='https://web.telegram.org/k/#@MarkSergeevichBot'">Телеграм</button>-->
+<!--        </div>-->
+<!--    </footer>-->
+    <footer>
+        <div class="footer-col">
+            <h4>О нас</h4>
+            <ul>
+                <li><a href="{% url 'polzovatelskoe_soglashenie' %}">Пользовательское соглашение</a></li>
+                <li><a href="{% url 'politika_konfidencialnosti' %}">Политика конфиденциальности</a></li>
+                <li><a href="{% url 'o_kompanii' %}">О компании</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Подписывайтесь</h4>
+            <div class="links">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="widget-container">
+          <div class="widget" onclick="toggleWindow()"></div>
+          <div class="popup" id="popup">
+            <div class="popup-content">
+              <span class="close" onclick="toggleWindow()">
+                <img src="{% static 'widget/img/close.png' %}" alt="Close" style="width: 30px; height: 30px;">
+              </span>
+              <div class="profile">
+                <img src="{% static 'widget/img/avatar.png' %}" alt="Photo">
+                <h2>Кадыков Роман</h2>
+                <div class="separator"></div>
+                <a href="https://t.me/RomanKadykov">
+                    <img class="contact-photo" src="{% static 'widget/img/hover-telegram.png' %}" alt="Telegram">
+                </a>
+                <a href="https://wa.me/89996353872">
+                    <img class="contact-photo" src="{% static 'widget/img/hover-whatsapp.png' %}" alt="WhatsApp">
+                </a>
+                <div class="phone">+7 (999) 635-38-72</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="{% static 'widget/widget.js' %}"></script>
+    </footer>
+</body>

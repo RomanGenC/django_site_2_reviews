@@ -3,7 +3,7 @@ from .models import Review, Recipient, Specialty
 from django.db import models
 from django import forms
 
-
+# #efefef #F0F8FF
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (

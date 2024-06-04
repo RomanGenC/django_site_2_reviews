@@ -1,14 +1,15 @@
-import datetime
+import time
+
+from django.core.cache import cache
 
 
-class TimeLoggingMiddleware:
+class CurrentTimeMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        # Логируем текущее время при обработке каждого запроса
-        print(f"Request received at {datetime.datetime.now()}")
 
+        print(time.strftime("%H:%M:%S"))
         response = self.get_response(request)
 
         return response

@@ -16,7 +16,7 @@ urlpatterns = [
     path('not_published_reviews/', views.not_published_reviews, name='not_published_reviews'),
 
     path('politika-konfidencialnosti/', views.politika_konfidencialnosti, name='politika_konfidencialnosti'),
-    path('polzovatelskoe-soglashenie/', views.polzovatelskoe_soglashenie, name='polzovatelskoe_soglashenie'),
+    path('polzovatelskoe-soglashenie/', cache_page(timeout=60, key_prefix='polzovatelskoe')(views.polzovatelskoe_soglashenie), name='polzovatelskoe_soglashenie'),
     path('o-kompanii/', views.o_kompanii, name='o_kompanii'),
 
     path('login/', auth_views.LoginView.as_view(), name='login'),
