@@ -4,6 +4,7 @@
 *.pyc
 *.pem
 *.json
+*.png
 __pycache__
 db.sqlite3
 media

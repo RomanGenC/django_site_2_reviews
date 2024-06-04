@@ -1,0 +1,9 @@
+.photo {
+    float: right; /* Фото выравнивается справа */
+    margin-right: 20px; /* Расстояние между текстом и фото */
+    margin-bottom: 20px;
+}
+.photo img {
+    max-width: 200px;
+    max-height: 200px;
+}

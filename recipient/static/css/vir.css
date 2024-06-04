@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Global Styles */
+body {
+    background: white;
+    font-family: "Poppins", sans-serif; /* Устанавливает шрифт для всего текста на странице */
+    font-weight: 300; /* Нормальная толщина шрифта */
+    font-size: 15px; /* Размер шрифта */
+    line-height: 1.7; /* Высота строки */
+    overflow-x: hidden; /* Прячет горизонтальную прокрутку, если она ненужна */
+}
+/* Centering Utility Class */
+.center {
+    display: flex; /* Использует flexbox для выравнивания элементов по центру */
+    justify-content: center; /* Центрирует содержимое по горизонтали */
+    align-items: center; /* Центрирует содержимое по вертикали */
+    height: 100vh; /* Занимает всю высоту экрана */
+}
+
+/* Hyperlink Styles */
+a {
+    color:#00abff; /* Цвет ссылок */
+    text-decoration:none; /* Убирает подчеркивание у ссылок */
+}
+
+/* Header Styles */
+h1 {
+    font-weight:normal; /* Нормальная толщина шрифта */
+    border-bottom:1px solid #bbb; /* Подчеркивание заголовка */
+    padding:0 0 10px 0; /* Внутренние отступы */
+}
+
+/* Subheader Styles */
+h2 {
+    font-weight:normal; /* Нормальная толщина шрифта */
+    margin:30px 0 0; /* Внешние отступы */
+}
+
+/* Content Section Styles */
+#content {
+    background: white; /* Цвет фона контента */
+    padding:10px 20px 20px 20px; /* Внутренние отступы */
+    border-radius: 20px; /* Радиус скругления углов */
+    margin: 0px 0 20px 0px; /* Внешние отступы */
+    border: 1px solid black; /* Граница */
+    font-size: 1em; /* Размер шрифта */
+}
+
+.wrapper {
+    display: flex;
+    padding: 0 10px 0 10px;
+    min-height: 100%;
+}
+.left_content
+{
+    margin: 0 1.5% 0 0;
+}
+.side_wrapper {
+    width: 30%;
+}
+/* Sidebar Styles */
+
+form {
+    text-align: center; /* Центрирует содержимое формы по горизонтали */
+    padding: 20px; /* Внутренние отступы */
+    border: 1px solid #ccc; /* Граница */
+    border-radius: 10px; /* Радиус скругления углов */
+    background-color: #f9f9f9; /* Цвет фона формы */
+}
+
+/* Another Sidebar Styles */
+.sidebar {
+    padding:10px 20px 20px 20px; /* Внутренние отступы */
+    background: white; /* Цвет фона боковой панели */
+    height: auto; /* Высота боковой панели */
+    border: 1px solid black; /* Граница */
+    border-radius: 20px; /* Радиус скругления углов */
+    font-size: 1em; /* Размер шрифта */
+    margin: 0 0 20px 0;
+}
+form input[type="text"],
+form input[type="password"] {
+    width: calc(100% - 20px); /* Ширина поля ввода */
+    margin-bottom: 20px; /* Внешние отступы */
+    padding: 10px; /* Внутренние отступы */
+    border-radius: 4px; /* Радиус скругления углов */
+    border: 1px solid #ccc; /* Граница */
+    background-color: #fff; /* Цвет фона */
+    box-sizing: border-box; /* Учитывает границу и внутренний отступ в расчетах ширины */
+}
+
+/* Pagination Styles */
+.pagination {
+    margin:40px 0; /* Внешние отступы */
+    font-weight:bold; /* Жирный шрифт */
+}
+
+/* Textarea Styles */
+form textarea[name="original_review"] {
+    resize: none; /* Отключает возможность изменения размеров текстового поля */
+    width: calc(100% - 40px); /* Ширина текстового поля */
+    word-wrap: break-word; /* Разрыв слов */
+}
+
+/* Date Paragraph Styles */
+p.date {
+    color:#ccc; /* Цвет текста */
+    font-family: georgia, serif; /* Шрифт текста */
+    font-size: 12px; /* Размер шрифта */
+    font-style: italic; /* Курсивное начертание */
+}
+
+/* Recipient Information Styles */
+.recipient-info {
+    display: flex; /* Использует flexbox */
+    align-items: flex-start; /* Выравнивание по верхнему краю */
+    border-bottom: 1px solid #ccc; /* Горизонтальная линия между докторами */
+    padding-bottom: 20px; /* Внутренние отступы */
+    overflow: auto; /* Контейнер обтекаемый */
+}
+
+.btn {
+    border-radius: 4px; /* Радиус скругления углов */
+    height: 44px; /* Высота кнопки */
+    font-size: 13px; /* Размер шрифта */
+    font-weight: 600; /* Полужирный шрифт */
+    text-transform: uppercase; /* Преобразует текст в верхний регистр */
+    transition: all 200ms linear; /* Плавное изменение всех свойств за 200 мс */
+    padding: 0 30px; /* Внутренние отступы */
+    letter-spacing: 1px; /* Межбуквенное расстояние */
+    display: inline-flex; /* Отображение в виде блока и внутреннее отступы */
+    align-items: center; /* Выравнивание по вертикали */
+    justify-content: center; /* Выравнивание по горизонтали */
+    text-align: center; /* Выравнивание текста по центру */
+    border: none; /* Убирает границу */
+    background-color: #ffeba7; /* Цвет фона кнопки */
+    color: #102770; /* Цвет текста */
+    box-shadow: 0 8px 24px 0 rgba(255, 235, 167, 0.2); /* Тень кнопки */
+    cursor: pointer; /* Изменяет курсор при наведении на кнопку */
+}
+
+/* Active and Focus Button Styles */
+.btn:active,
+.btn:focus {
+    background-color: #102770; /* Цвет фона при активации или фокусировке */
+    color: #ffeba7; /* Цвет текста при активации или фокусировке */
+    box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2); /* Тень при активации или фокусировке */
+}
+
+.tabs {
+    background-color: #f2f2f2;
+    overflow: hidden;
+    white-space: nowrap;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    display: inline-block;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    width: calc(100% / 4); /* Равномерно распределить вкладки по ширине страницы */
+}
+
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 14px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Контент вкладок */
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border-top: none;
+}
+
+/* Hover Button Styles */
+.btn:hover {
+    background-color: #1f2029; /* Цвет фона при наведении */
+    color: #ffeba7; /* Цвет текста при наведении */
+    box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2); /* Тень при наведении */
+}
+
+/* Ссылка на тг */
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}

@@ -1,0 +1,15 @@
+.photo {
+    float: right; /* Фото выравнивается справа */
+    margin-right: 20px; /* Расстояние между текстом и фото */
+    margin-bottom: 20px;
+}
+.photo img {
+    max-width: 300px;
+    max-height: 300px;
+}
+.wrapper {
+    display: flex;
+}
+.left_content {
+    flex: 1;
+}

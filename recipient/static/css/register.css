@@ -1,0 +1,7 @@
+body {
+    background-color: #1f2029;
+}
+input.username-input,
+input.password-input {
+    margin-top: 20px; /* Внешние отступы */
+}

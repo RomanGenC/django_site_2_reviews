@@ -1,0 +1,10 @@
+.center {
+    display: flex; /* Использует flexbox для выравнивания элементов по центру */
+    justify-content: center; /* Центрирует содержимое по горизонтали */
+    align-items: center; /* Центрирует содержимое по вертикали */
+    height: 100vh; /* Занимает всю высоту экрана */
+    flex-direction: column;
+}
+.center-content {
+    text-align: center; /* Выравниваем текст по центру */
+}

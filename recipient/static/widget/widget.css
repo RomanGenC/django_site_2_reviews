@@ -1,0 +1,116 @@
+.widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.widget {
+  width: 100px;
+  height: 100px;
+  background-image: url('img/hover-telegram.png'); /* Укажите путь к вашему изображению */
+  background-size: cover; /* Сохраняем соотношение сторон */
+  background-position: center; /* Выравниваем изображение по центру */
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative; /* Добавляем относительное позиционирование */
+  animation: fadeIn 0.5s ease forwards; /* Применяем анимацию fadeIn */
+  animation: pulse 2s infinite alternate;
+}
+
+.widget span {
+  position: absolute; /* Абсолютное позиционирование внутри .widget */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Центрируем по горизонтали и вертикали */
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 300px; /* Увеличиваем ширину окна */
+  max-width: calc(100% - 40px); /* Ширина не больше ширины виджета контейнера - 40px */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.popup-content {
+  padding: 10px;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+}
+
+.profile {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile h2 {
+  margin: 10px 0;
+}
+
+.separator {
+  height: 1px;
+  background-color: #ccc;
+  margin: 10px auto;
+  width: 80%;
+}
+
+.contact-photo {
+  max-width: 50px; /* Максимальная ширина фото контакта */
+  max-height: 50px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.phone {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: 1px solid #C4C4C4;
+    margin: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 10px;
+    text-align: center;
+    width: max-content;
+    display: block;
+    text-decoration: none!important;
+    color: inherit;
+}
+
+/* Анимация для появления виджета */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

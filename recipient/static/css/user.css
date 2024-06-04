@@ -1,0 +1,6 @@
+.wrapper {
+    display: flex;
+}
+.left_content {
+    flex: 1;
+}
