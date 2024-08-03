@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import re
+from django.urls import reverse
 
 
 class Specialty(models.Model):
@@ -32,6 +32,9 @@ class Recipient(models.Model):
 
     def __str__(self):
         return self.fullname
+
+    def get_absolute_url(self):
+        return reverse('recipient_info', args=[str(self.id)])
 
     class Meta:
         verbose_name = "Обозреваемый"

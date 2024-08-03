@@ -1,0 +1,45 @@
+{% extends 'recipient/vir.html' %}
+{% load static cache %}
+{% block content %}
+    <link href="{% static "css/search.css" %}" rel="stylesheet">
+    <link href="{% static 'css/select2.min.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+
+    <div class="wrapper">
+        <div class="left_content">
+            <div id="content">
+                 {% if sent %}
+                     <h1>Письмо успешно отправлено</h1>
+                     <p>
+                         Вы поделились рецензентом "{{ recipient.fullname }}"
+                         с {{ form.cleaned_data.to }}.
+                     </p>
+                 {% else %}
+                     <h1>Поделиться рецензентом</h1>
+                     <form method="post">
+                         <label for="select_recipient">Рецензент</label>
+                         <select id="select_recipient" class="recipients" name="recipient_id">
+                             {% for recipient in recipients %}
+                                 <option value="{{ recipient.id }}">{{ recipient.fullname }}</option>
+                             {% endfor %}
+                         </select>
+                         {{ form.as_p }}
+                         {% csrf_token %}
+                         <input type="submit" value="Отправить письмо">
+                     </form>
+                 {% endif %}
+            </div>
+        </div>
+        <div class="side_wrapper">
+            <div class="sidebar">
+                <h1><a href="{% url 'base_page' %}">Основная страница</a></h1>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('.recipients').select2();
+        });
+    </script>
+{% endblock %}

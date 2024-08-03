@@ -14,6 +14,7 @@ urlpatterns = [
     path('search/', views.recipient_search, name='recipient_search'),
     path('edit_review/<int:pk>/', views.edit_review, name='edit_review'),
     path('not_published_reviews/', views.not_published_reviews, name='not_published_reviews'),
+    path('<int:recipient_id>/share.html/', views.recipient_share, name='recipient_share'),
 
     path('politika-konfidencialnosti/', views.politika_konfidencialnosti, name='politika_konfidencialnosti'),
     path('polzovatelskoe-soglashenie/', cache_page(timeout=60, key_prefix='polzovatelskoe')(views.polzovatelskoe_soglashenie), name='polzovatelskoe_soglashenie'),

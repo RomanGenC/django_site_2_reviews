@@ -2,18 +2,17 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import User
-from django.contrib.postgres.search import SearchVector
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.cache import cache
 from django.urls import reverse
 from django.db.models import Avg, Count
 from django.views.decorators.cache import cache_page
-from django.views.decorators.http import require_GET
 from django.views.decorators.vary import vary_on_headers
 
-from recipient.forms import LoginForm, UserRegistrationForm, AddReview, SearchForm, ReviewEditForm
+from recipient.forms import LoginForm, UserRegistrationForm, AddReview, SearchForm, ReviewEditForm, EmailSendForm
 from recipient.models import Review, Recipient
+from reviews.celery import task_email_send
 
 
 def polzovatelskoe_soglashenie(request):
@@ -28,6 +27,40 @@ def politika_konfidencialnosti(request):
 @cache_page(60 * 15, key_prefix='o_kompanii')
 def o_kompanii(request):
     return render(request, 'about_site/o_kompanii.html')
+
+
+def recipient_share(request, recipient_id):
+    recipient = get_object_or_404(Recipient, id=recipient_id)
+    recipients = Recipient.objects.all()
+    sent = False
+
+    if request.method == 'POST':
+        form = EmailSendForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+
+            post_url = request.build_absolute_uri(
+                recipient.get_absolute_url()
+            )
+
+            task_email_send(
+                username=cd['username'],
+                fullname=recipient.fullname,
+                post_url=post_url,
+                comments=cd['comments'],
+                to=cd['to'],
+            )
+
+            sent = True
+
+    else:
+        form = EmailSendForm()
+    return render(request, 'recipient/share.html', {
+        'recipient': recipient,
+        'recipients': recipients,
+        'form': form,
+        'sent': sent
+    })
 
 
 def base_page(request):
@@ -68,7 +101,6 @@ def login_user(request):
     return render(request, 'registration/login.html', {'form': form})
 
 
-@require_GET
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -89,7 +121,8 @@ def register(request):
 @login_required
 def self_cabinet(request):
     user = get_object_or_404(User, username=request.user.username)
-    reviews = Review.objects.select_related('recipient', 'user').prefetch_related('recipient__specialities').filter(user=user)
+    reviews = Review.objects.select_related('recipient', 'user').prefetch_related('recipient__specialities').filter(
+        user=user)
 
     return render(request,
                   'recipient/self_cabinet.html',
@@ -183,6 +216,7 @@ def not_published_reviews(request):
     )
 
     return render(request, 'recipient/not_published_reviews.html', {'reviews': reviews})
+
 
 def recipient_search(request):
     form = SearchForm()

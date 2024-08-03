@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Recipient, Review
+from .models import Review
 from django.contrib.auth.models import User
 
 
@@ -54,3 +54,10 @@ class AddReview(forms.ModelForm):
 
 class SearchForm(forms.Form):
     query = forms.CharField()
+
+
+class EmailSendForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required=False, widget=forms.Textarea)
