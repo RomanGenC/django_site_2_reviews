@@ -17,6 +17,11 @@
                         <p>Стаж работы: {{ recipient.experience }} год</p>
                         <p>Визитка: {{ recipient.description }}</p>
                         <a><button onclick="window.location.href='{% url 'add_review' recipient.id %}'">Оставить честный отзыв</button></a>
+                         <p>
+                             <a href="{% url "recipient_share" recipient.id %}">
+                                Поделиться рецензентом
+                             </a>
+                         </p>
                     </div>
                 </div>
                 <h2>Отзывы об обозреваемом</h2>

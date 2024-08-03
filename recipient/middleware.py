@@ -1,7 +1,5 @@
 import time
 
-from django.core.cache import cache
-
 
 class CurrentTimeMiddleware:
     def __init__(self, get_response):

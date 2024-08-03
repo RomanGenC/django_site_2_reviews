@@ -3,11 +3,17 @@ from .models import Review, Recipient, Specialty
 from django.db import models
 from django import forms
 
-# #efefef #F0F8FF
-@admin.register(Review)
+
+@admin.register(Review)  # #efefef #F0F8FF
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
-        'recipient', 'original_review', 'modified_review', 'time_create', 'time_update', 'is_published', 'user',
+        'recipient',
+        'original_review',
+        'modified_review',
+        'time_create',
+        'time_update',
+        'is_published',
+        'user',
         'user_ip'
     )
     list_filter = ('time_create',)
@@ -16,7 +22,9 @@ class ReviewAdmin(admin.ModelAdmin):
     autocomplete_fields = ('recipient',)
     list_per_page = 10
     formfield_overrides = {
-        models.CharField: {'widget': forms.Textarea(attrs={'rows': 10, 'cols': 40})},
+        models.CharField: {'widget': forms.Textarea(
+            attrs={'rows': 10, 'cols': 40}
+        )},
     }
 
     def get_queryset(self, request):
