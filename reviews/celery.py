@@ -1,25 +1,16 @@
 import os
 from celery import Celery
-from django.core.mail import send_mail
+from kombu import Queue
 
-from reviews.secret import ENVIROMENT_VARIABLES
+from reviews import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'reviews.settings')
 
 app = Celery('reviews')
 app.config_from_object('django.conf:settings', namespace='CELERY')
-app.autodiscover_tasks()
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request}')
-
-
-@app.task(bind=True)
-def task_email_send(self, username, fullname, post_url, comments, to):
-    subject = f"{username} recommends you read " \
-              f"{fullname}"
-    message = f"Read {fullname} at {post_url}\n\n" \
-              f"{username}\'s comments: {comments}"
-    send_mail(subject, message, ENVIROMENT_VARIABLES['EMAIL_HOST_USER'], [to])
+app.conf.task_queues = (
+    Queue('celery', routing_key='celery'),
+    Queue('send_email', routing_key='send_email'),
+)
