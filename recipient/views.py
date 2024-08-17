@@ -12,7 +12,8 @@ from django.views.decorators.vary import vary_on_headers
 
 from recipient.forms import LoginForm, UserRegistrationForm, AddReview, SearchForm, ReviewEditForm, EmailSendForm
 from recipient.models import Review, Recipient
-from reviews.celery import task_email_send
+from recipient.tasks import task_email_send
+from utils.tasks_utils import run_task
 
 
 def polzovatelskoe_soglashenie(request):
@@ -42,13 +43,20 @@ def recipient_share(request, recipient_id):
             post_url = request.build_absolute_uri(
                 recipient.get_absolute_url()
             )
-
-            task_email_send(
-                username=cd['username'],
-                fullname=recipient.fullname,
-                post_url=post_url,
-                comments=cd['comments'],
-                to=cd['to'],
+            subject = f"{cd['username']} посоветовал тебе рецензента " \
+                      f"{recipient.fullname}"
+            message = f"Можешь почитать о {recipient.fullname} по ссылке {post_url}\n\n" \
+                      f"{cd['username']}\' комментарии: {cd['comments']}"
+            run_task(
+                task=task_email_send,
+                queue='send_email',
+                task_kwargs={
+                    'subject': subject,
+                    'message': message,
+                    'to': [cd['to']],
+                },
+                task_id=f'send_mail_recipient_{recipient_id}',
+                time_limit=60,
             )
 
             sent = True
